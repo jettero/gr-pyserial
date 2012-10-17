@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Wed Oct 17 00:32:15 2012</timestamp>
+  <timestamp>Wed Oct 17 07:47:43 2012</timestamp>
   <block>
     <key>variable</key>
     <param>
@@ -36,7 +36,7 @@
     </param>
     <param>
       <key>device</key>
-      <value>/dev/pts/6</value>
+      <value>/dev/pts/5</value>
     </param>
     <param>
       <key>stopbits</key>
@@ -79,7 +79,7 @@
     </param>
     <param>
       <key>device</key>
-      <value>/dev/pts/8</value>
+      <value>/dev/pts/7</value>
     </param>
     <param>
       <key>stopbits</key>
@@ -114,7 +114,7 @@
     <key>options</key>
     <param>
       <key>id</key>
-      <value>top_block</value>
+      <value>vsp_connect</value>
     </param>
     <param>
       <key>_enabled</key>

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 ##################################################
 # Gnuradio Python Flow Graph
-# Title: Top Block
-# Generated: Wed Oct 17 00:34:42 2012
+# Title: Vsp Connect
+# Generated: Wed Oct 17 07:47:46 2012
 ##################################################
 
 from gnuradio import eng_notation
@@ -14,10 +14,10 @@ from optparse import OptionParser
 import grpyserial
 import wx
 
-class top_block(grc_wxgui.top_block_gui):
+class vsp_connect(grc_wxgui.top_block_gui):
 
 	def __init__(self):
-		grc_wxgui.top_block_gui.__init__(self, title="Top Block")
+		grc_wxgui.top_block_gui.__init__(self, title="Vsp Connect")
 		_icon_path = "/usr/share/icons/hicolor/32x32/apps/gnuradio-grc.png"
 		self.SetIcon(wx.Icon(_icon_path, wx.BITMAP_TYPE_ANY))
 
@@ -29,8 +29,8 @@ class top_block(grc_wxgui.top_block_gui):
 		##################################################
 		# Blocks
 		##################################################
-		self.serial_port_0_0 = grpyserial.serial_port("/dev/pts/8",0,115200,0,1,False)
-		self.serial_port_0 = grpyserial.serial_port("/dev/pts/6",0,115200,0,1,False)
+		self.serial_port_0_0 = grpyserial.serial_port("/dev/pts/7",0,115200,0,1,False)
+		self.serial_port_0 = grpyserial.serial_port("/dev/pts/5",0,115200,0,1,False)
 
 		##################################################
 		# Connections
@@ -47,6 +47,6 @@ class top_block(grc_wxgui.top_block_gui):
 if __name__ == '__main__':
 	parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
 	(options, args) = parser.parse_args()
-	tb = top_block()
+	tb = vsp_connect()
 	tb.Run(True)
 

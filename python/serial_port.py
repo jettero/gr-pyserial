@@ -35,6 +35,8 @@ ODD = 2
 STOPBITS_ONE = 0
 STOPBITS_TWO = 1
 
+WORD_SIZE_7 = 0 
+WORD_SIZE_8 = 1
 
 # /////////////////////////////////////////////////////////////////////////////
 #                   Serial Port
@@ -74,42 +76,43 @@ class serial_port(gr.block):
         
         
         #set parity
-        '''
+        
         if self.parity == NONE:
             self.parity = serial.PARITY_NONE
         elif self.parity == EVEN:
             self.parity = serial.PARITY_EVEN
-        elif self.parity = ODD:
+        else:
             self.parity = serial.PARITY_ODD
         
-        if self.stopbits = STOPBITS_ONE:
+        if self.stopbits == STOPBITS_ONE:
             self.stopbits = serial.STOPBITS_ONE
-        elif self.stopbits = STOPBITS_TWO:
+        elif self.stopbits == STOPBITS_TWO:
             self.stopbits = serial.STOPBITS_TWO
-        '''
-        self.parity = serial.PARITY_NONE
-        self.stopbits = serial.STOPBITS_ONE
-        self.bytesize = serial.EIGHTBITS
+        
+        if self.bytesize == WORD_SIZE_7:
+            self.bytesize = serial.SEVENBITS
+        else:
+            self.bytesize = serial.EIGHTBITS
         
         # configure the serial connections (the parameters differs on the device you are connecting to)
-        '''
+        
         self.ser = serial.Serial(
             port=self.device,
             baudrate=self.baudrate,
             parity=self.parity,
             stopbits=self.stopbits,
-            bytesize=self.bytesizes
+            bytesize=self.bytesize
         )
+
         '''
-        
         self.ser = serial.Serial(
             port=self.device,
-            baudrate=9600,
+            baudrate=self.baudrate,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
-        
+        '''
         print "Opened: ",self.ser.portstr       # check which port was really used
         self.ser.write("hel;lkfsdsa;lkfjdsaflo\n\r")      # write a string
         #ser.close()             # close port

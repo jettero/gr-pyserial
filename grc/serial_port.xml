@@ -17,7 +17,7 @@
     <param>
         <name>Stop Bits</name>
         <key>stopbits</key>
-        <type>string</type>
+        <type>int</type>
         <option>
 			<name>ONE</name>
 			<key>0</key>

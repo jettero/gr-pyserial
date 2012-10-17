@@ -103,7 +103,7 @@ class serial_port(gr.block):
         '''
         
         self.ser = serial.Serial(
-            port='/dev/pts/3',
+            port=self.device,
             baudrate=9600,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,

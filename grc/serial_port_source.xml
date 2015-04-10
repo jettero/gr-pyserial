@@ -18,6 +18,7 @@
     <param>
         <name>Stop Bits</name>
         <key>stopbits</key>
+        <value>0</value>
         <type>int</type>
         <option>
 			<name>ONE</name>
@@ -31,6 +32,7 @@
     <param>
     <name>Parity</name>
         <key>parity</key>
+        <value>0</value>
         <type>int</type>
         <option>
 			<name>NONE</name>
@@ -48,6 +50,7 @@
     <param>
     <name>Byte Size</name>
         <key>bytesize</key>
+        <value>1</value>
         <type>int</type>
         <option>
 			<name>7</name>
@@ -61,6 +64,7 @@
     <param>
     <name>Wait For New Line?</name>
         <key>waitfornewline</key>
+        <value>False</value>
         <type>bool</type>
         <option>
 			<name>Yes</name>
@@ -74,12 +78,14 @@
     <param>
         <name>Buad Rate</name>
         <key>baudrate</key>
+        <value>115200</value>
         <type>int</type>
     </param>
 
     <param>
     <name>DEBUG</name>
         <key>debug</key>
+        <value>False</value>
         <type>bool</type>
 		<option>
 			<name>Spam Console</name>

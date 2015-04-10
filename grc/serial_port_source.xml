@@ -5,10 +5,11 @@
 ###################################################
  -->
 <block>
-    <name>Serial Port</name>
-    <key>serial_port</key>
+    <name>Serial Port Source</name>
+    <key>serial_port_source</key>
+    <category>Serial</category>
     <import>import grpyserial</import>
-    <make>grpyserial.serial_port($device,$parity,$baudrate,$stopbits,$bytesize,$waitfornewline)</make>
+    <make>grpyserial.serial_port_source($device,$parity,$baudrate,$stopbits,$bytesize,$waitfornewline)</make>
     <param>
         <name>Device Path</name>
         <key>device</key>
@@ -76,17 +77,13 @@
         <type>int</type>
     </param>
     
-    <sink>
-        <name>to_serial</name>
-        <type></type>
-    </sink>
     <source>
-        <name>from_serial</name>
-        <type></type>
+        <name>out</name>
+        <type>byte</type>
     </source>
-
  
     <doc>
-Serial port with PMT I/O.
+Serial port byte source.
     </doc>
+
 </block>

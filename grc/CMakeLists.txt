@@ -21,7 +21,7 @@
 # Install GRC xml files
 ########################################################################
 list(APPEND grc_sources
-    serial_port.xml
+    serial_port_source.xml
 )
 
 install(

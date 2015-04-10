@@ -17,4 +17,4 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
-from serial_port import *
+from serial_port_source import *

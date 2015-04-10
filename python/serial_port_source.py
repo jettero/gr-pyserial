@@ -20,13 +20,8 @@
 # 
 
 import numpy
-from math import pi
 from gnuradio import gr
-from gruel import pmt
-import gnuradio.extras #brings in gr.block
 import serial
-import thread
-
 
 NONE = 0
 EVEN = 1 
@@ -38,11 +33,7 @@ STOPBITS_TWO = 1
 WORD_SIZE_7 = 0 
 WORD_SIZE_8 = 1
 
-# /////////////////////////////////////////////////////////////////////////////
-#                   Serial Port
-# /////////////////////////////////////////////////////////////////////////////
-
-class serial_port(gr.block):
+class serial_port_source(gr.basic_block):
     """
     Provides serial port connection within GNU Radio flowgraph
     """
@@ -53,27 +44,19 @@ class serial_port(gr.block):
         Serial port w/ blobs in and out
         """
 
-        gr.block.__init__(
+        gr.basic_block.__init__(
             self,
-            name = "serial_port",
-            in_sig = None,
-            out_sig = None,
-            num_msg_inputs = 1,
-            num_msg_outputs = 1,
+            "serial_port_source",
+            in_sig=None,
+            out_sig=[numpy.byte],
         )
     
-        self.mgr = pmt.pmt_mgr()
-        for i in range(64):
-            self.mgr.set(pmt.pmt_make_blob(10000))
-        
         self.device = device
         self.parity = parity
         self.baudrate = baudrate 
         self.stopbits = stopbits
         self.bytesize = bytesize
         self.wait_for_newline = wait_for_newline
-        
-        
         
         #set parity
         
@@ -117,39 +100,10 @@ class serial_port(gr.block):
         self.ser.write("hel;lkfsdsa;lkfjdsaflo\n\r")      # write a string
         #ser.close()             # close port
 
-    def rx_work(self,ser):
-        while(1):
-            try: msg = self.pop_msg_queue()
-            except: return -1
+    def work(self,input_items, output_items):
+        if(self.wait_for_newline):
+            rx = ser.readline()
+        else:
+            rx = ser.read()
 
-            if not pmt.pmt_is_blob(msg.value):
-                continue
-
-            blob = pmt.pmt_blob_data(msg.value)
-            
-            tx_string = pmt.pmt_blob_data(msg.value).tostring()
-            
-            ser.write(tx_string)
-
-    def tx_work(self,ser):
-        while(1):
-            if(self.wait_for_newline):
-                rx_buf = ser.readline()
-            else:
-                rx_buf = ser.read()
-            blob = self.mgr.acquire(True) #block
-            pmt.pmt_blob_resize(blob, len(rx_buf))
-            pmt.pmt_blob_rw_data(blob)[:] = numpy.fromstring(rx_buf, dtype='uint8')
-            self.post_msg(0, pmt.pmt_string_to_symbol('serial'), blob)
-
-    def work(self, input_items, output_items):
-                
-        thread.start_new_thread( self.rx_work,  (self.ser , ))
-        thread.start_new_thread( self.tx_work, (self.ser , ))
-
-        while(1): 
-            try:
-                a =0
-            except:
-                print "exiting"
-                return -1
+        return 1;

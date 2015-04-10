@@ -23,8 +23,8 @@
 include(GrPython)
 
 list(APPEND python_sources
-    serial_port.py
-    __init__.py    #virtual_channel_mux.py
+    serial_port_source.py
+    __init__.py    # virtual_channel_mux.py
 )
 
 GR_PYTHON_INSTALL(

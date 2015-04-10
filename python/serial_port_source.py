@@ -22,6 +22,7 @@
 import numpy
 from gnuradio import gr
 import serial
+#import os
 
 NONE = 0
 EVEN = 1 
@@ -47,8 +48,8 @@ class serial_port_source(gr.basic_block):
         gr.basic_block.__init__(
             self,
             "serial_port_source",
-            in_sig=None,
-            out_sig=[numpy.byte],
+            None,
+            [numpy.byte]
         )
     
         self.device = device
@@ -100,10 +101,24 @@ class serial_port_source(gr.basic_block):
         self.ser.write("hel;lkfsdsa;lkfjdsaflo\n\r")      # write a string
         #ser.close()             # close port
 
-    def work(self,input_items, output_items):
-        if(self.wait_for_newline):
-            rx = ser.readline()
-        else:
-            rx = ser.read()
+    def general_work(self,input_items, output_items):
+        out = output_items[0]
+        to_read = len(out)
 
-        return 1;
+        if to_read > 10:
+            to_read = 10
+
+        if(self.wait_for_newline):
+            #os.write(2, "spam: about to read %d chars from a line …" % to_read)
+            rx = list( self.ser.readline(to_read).rstrip() )
+        else:
+            #os.write(2, "spam: about to read %d chars …" % to_read)
+            rx = list( self.ser.read(to_read) )
+
+        #os.write(2, "\nspam: read this: %s\napplying to out=%s …" % (rx,out))
+
+        out[0:len(rx)] = map(ord,rx)
+
+        #os.write(2, "∎")
+
+        return len(rx)

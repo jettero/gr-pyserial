@@ -9,7 +9,7 @@
     <key>serial_port_source</key>
     <category>Serial</category>
     <import>import grpyserial</import>
-    <make>grpyserial.serial_port_source($device,$parity,$baudrate,$stopbits,$bytesize,$waitfornewline)</make>
+    <make>grpyserial.serial_port_source($device,$parity,$baudrate,$stopbits,$bytesize,$waitfornewline,$debug)</make>
     <param>
         <name>Device Path</name>
         <key>device</key>
@@ -75,6 +75,20 @@
         <name>Buad Rate</name>
         <key>baudrate</key>
         <type>int</type>
+    </param>
+
+    <param>
+    <name>DEBUG</name>
+        <key>debug</key>
+        <type>bool</type>
+		<option>
+			<name>Spam Console</name>
+			<key>True</key>
+		</option>
+		<option>
+			<name>Don't Spam Console</name>
+			<key>False</key>
+		</option>
     </param>
     
     <source>

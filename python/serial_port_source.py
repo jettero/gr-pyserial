@@ -22,7 +22,7 @@
 import numpy
 from gnuradio import gr
 import serial
-#import os
+import os
 
 NONE = 0
 EVEN = 1 
@@ -39,7 +39,8 @@ class serial_port_source(gr.basic_block):
     Provides serial port connection within GNU Radio flowgraph
     """
     def __init__(
-        self,device,parity,baudrate,stopbits,bytesize,wait_for_newline
+        self,device,parity,baudrate,stopbits,bytesize,wait_for_newline,
+        debug
     ):
         """
         Serial port w/ blobs in and out
@@ -58,7 +59,8 @@ class serial_port_source(gr.basic_block):
         self.stopbits = stopbits
         self.bytesize = bytesize
         self.wait_for_newline = wait_for_newline
-        
+        self.debug = debug
+
         #set parity
         
         if self.parity == NONE:
@@ -109,16 +111,20 @@ class serial_port_source(gr.basic_block):
             to_read = 10
 
         if(self.wait_for_newline):
-            #os.write(2, "spam: about to read %d chars from a line …" % to_read)
+            if self.debug:
+                os.write(2, "spam: about to read %d chars from a line …" % to_read)
             rx = list( self.ser.readline(to_read).rstrip() )
         else:
-            #os.write(2, "spam: about to read %d chars …" % to_read)
+            if self.debug:
+                os.write(2, "spam: about to read %d chars …" % to_read)
             rx = list( self.ser.read(to_read) )
 
-        #os.write(2, "\nspam: read this: %s\napplying to out=%s …" % (rx,out))
+        if self.debug:
+            os.write(2, "\nspam: read this: %s\napplying to out=%s …" % (rx,out))
 
         out[0:len(rx)] = map(ord,rx)
 
-        #os.write(2, "∎")
+        if self.debug:
+            os.write(2, "\n∎\n")
 
         return len(rx)

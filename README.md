@@ -54,3 +54,6 @@ cd /tmp/gr-pyserial
 # skip the -DMAKE_INSTALL_PREFIX if you want /usr/local
 cmake -DCMAKE_INSTALL_PREFIX=/usr "$grwd"
 sudo make install
+
+# *or* just use my build script
+bash build.sh /my/install/prefix/here

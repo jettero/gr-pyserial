@@ -1,18 +1,18 @@
 #!/bin/bash
 
-PREFIX="$1"
-shift
+buildname='gr-pyserial'
+buildtmp="/tmp/$buildname.tmp"
 
 if [ -z "$PREFIX" ]; then
     read -ep "PREFIX=" -i /usr/local PREFIX
 fi
 
 function remove_tmp() {
-    rm -rvf /tmp/gr-pyserial.tmp-* \
+    rm -rvf ${buildtmp}-* \
         | grep --color=never directory:
 }
 
-tmp=$(mktemp -d /tmp/gr-pyserial.tmp-XXXXXXXXXX)
+tmp=$(mktemp -d ${buildtmp}-XXXXXXXXXXXX)
 trap "remove_tmp; exit" 0 1 2 5 15
 
 src_dir=$(dirname $(readlink -m $0))
@@ -34,7 +34,8 @@ set -e
 
 cmake -Wno-dev "-DCMAKE_INSTALL_PREFIX=${PREFIX:-/usr/local}" "$src_dir"
 make
-sudo make install
+[ -z "$NO_INSTALL" ] && \
+    sudo make install
 
 if [ -n "$*" ]; then
     "$@"

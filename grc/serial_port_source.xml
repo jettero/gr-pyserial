@@ -8,6 +8,7 @@
     <name>Serial Port Source</name>
     <key>serial_port_source</key>
     <category>Serial</category>
+	<throttle>1</throttle>
     <import>import grpyserial</import>
     <make>grpyserial.serial_port_source($device,$parity,$baudrate,$stopbits,$bytesize,$waitfornewline,$debug)</make>
     <param>
